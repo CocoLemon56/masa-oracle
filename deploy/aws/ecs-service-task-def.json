@@ -1,0 +1,54 @@
+{
+  "family": "masa-oracle-service-task",
+  "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/ecs-task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "masa-oracle-service-container",
+      "image": "<IMAGE_URI>",
+      "cpu": 256,
+      "memory": 512,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 4001,
+          "hostPort": 0
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/masa-oracle-service",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "secrets": [
+        {
+          "name": "BOOTNODES",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:<AWS_ACCOUNT_ID>:secret:BOOTNODES"
+        },
+        {
+          "name": "RPC_URL",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:<AWS_ACCOUNT_ID>:secret:RPC_URL"
+        },
+        {
+          "name": "ENV",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:<AWS_ACCOUNT_ID>:secret:ENV"
+        },
+        {
+          "name": "FILE_PATH",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:<AWS_ACCOUNT_ID>:secret:FILE_PATH"
+        },
+        {
+          "name": "WRITER_NODE",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:<AWS_ACCOUNT_ID>:secret:WRITER_NODE"
+        },
+        {
+          "name": "CACHE_PATH",
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:<AWS_ACCOUNT_ID>:secret:CACHE_PATH"
+        }
+      ]
+    }
+  ]
+}
+
