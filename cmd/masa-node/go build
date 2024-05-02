@@ -1,0 +1,1 @@
+go build -v -o masa-node ./cmd/masa-node
